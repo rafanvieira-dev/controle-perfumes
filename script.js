@@ -6,7 +6,9 @@ function salvarEstoque(estoque) {
     localStorage.setItem("estoque", JSON.stringify(estoque));
 }
 
+// ===============================
 // CADASTRO
+// ===============================
 function cadastrarProduto() {
     const nome = document.getElementById("nome").value;
     const quantidade = parseInt(document.getElementById("quantidade").value);
@@ -18,7 +20,6 @@ function cadastrarProduto() {
     }
 
     let estoque = getEstoque();
-
     const produtoExistente = estoque.find(p => p.nome === nome);
 
     if (produtoExistente) {
@@ -31,13 +32,41 @@ function cadastrarProduto() {
     alert("Produto cadastrado com sucesso!");
 }
 
+// ===============================
+// CARREGAR PRODUTOS NA LISTA
+// ===============================
+function carregarProdutos() {
+    const estoque = getEstoque();
+    const select = document.getElementById("produtoSelect");
+
+    if (!select) return;
+
+    select.innerHTML = '<option value="">Selecione o perfume</option>';
+
+    estoque.forEach(produto => {
+        if (produto.quantidade > 0) {
+            select.innerHTML += `
+                <option value="${produto.nome}">
+                    ${produto.nome} (Estoque: ${produto.quantidade})
+                </option>
+            `;
+        }
+    });
+}
+
+// ===============================
 // SAÍDA
+// ===============================
 function retirarProduto() {
-    const nome = document.getElementById("nomeSaida").value;
+    const nome = document.getElementById("produtoSelect").value;
     const quantidade = parseInt(document.getElementById("quantidadeSaida").value);
 
-    let estoque = getEstoque();
+    if (!nome || quantidade <= 0) {
+        alert("Selecione um produto e informe a quantidade!");
+        return;
+    }
 
+    let estoque = getEstoque();
     const produto = estoque.find(p => p.nome === nome);
 
     if (!produto) {
@@ -52,13 +81,21 @@ function retirarProduto() {
 
     produto.quantidade -= quantidade;
     salvarEstoque(estoque);
-    alert("Saída registrada!");
+
+    alert("Saída registrada com sucesso!");
+
+    carregarProdutos();
+    document.getElementById("quantidadeSaida").value = "";
 }
 
+// ===============================
 // BALANCETE
+// ===============================
 function carregarBalancete() {
     const estoque = getEstoque();
     const tabela = document.getElementById("tabela");
+
+    if (!tabela) return;
 
     let totalFinanceiro = 0;
     tabela.innerHTML = "";
