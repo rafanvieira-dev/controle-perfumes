@@ -4,7 +4,7 @@
     <title>Saída</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="carregarProdutos()">
 
 <header>
     <h1>Saída de Produto</h1>
@@ -14,9 +14,15 @@
 </header>
 
 <div class="container">
-    <input type="text" id="nomeSaida" placeholder="Nome do perfume">
+
+    <select id="produtoSelect">
+        <option value="">Selecione o perfume</option>
+    </select>
+
     <input type="number" id="quantidadeSaida" placeholder="Quantidade para retirada">
+
     <button onclick="retirarProduto()">Registrar Saída</button>
+
 </div>
 
 <script src="script.js"></script>
