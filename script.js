@@ -29,7 +29,11 @@ function cadastrarProduto() {
     }
 
     salvarEstoque(estoque);
+
     alert("Produto cadastrado com sucesso!");
+
+    // 🔥 NOVO: voltar para página principal
+    window.location.href = "index.html";
 }
 
 // ===============================
@@ -84,8 +88,8 @@ function retirarProduto() {
 
     alert("Saída registrada com sucesso!");
 
-    carregarProdutos();
-    document.getElementById("quantidadeSaida").value = "";
+    // 🔥 NOVO: voltar para página principal
+    window.location.href = "index.html";
 }
 
 // ===============================
