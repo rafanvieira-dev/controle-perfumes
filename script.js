@@ -122,7 +122,7 @@ function carregarBalancete() {
         "Total em Estoque: R$ " + totalFinanceiro.toFixed(2);
 }
 // ===============================
-// PÁGINA ESTOQUE
+// PÁGINA ESTOQUE COM AÇÕES
 // ===============================
 function carregarEstoque() {
     const estoque = getEstoque();
@@ -133,7 +133,7 @@ function carregarEstoque() {
     let totalGeral = 0;
     tabela.innerHTML = "";
 
-    estoque.forEach(produto => {
+    estoque.forEach((produto, index) => {
         const totalProduto = produto.quantidade * produto.preco;
         totalGeral += totalProduto;
 
@@ -143,10 +143,53 @@ function carregarEstoque() {
                 <td>${produto.quantidade}</td>
                 <td>R$ ${produto.preco.toFixed(2)}</td>
                 <td>R$ ${totalProduto.toFixed(2)}</td>
+                <td>
+                    <button type="button" onclick="editarProduto(${index})">Editar</button>
+                    <button type="button" onclick="excluirProduto(${index})">Excluir</button>
+                </td>
             </tr>
         `;
     });
 
     document.getElementById("totalEstoque").innerText =
         "Valor Total do Estoque: R$ " + totalGeral.toFixed(2);
+}
+
+// ===============================
+// EXCLUIR PRODUTO
+// ===============================
+function excluirProduto(index) {
+    let estoque = getEstoque();
+
+    if (confirm("Tem certeza que deseja excluir este produto?")) {
+        estoque.splice(index, 1);
+        salvarEstoque(estoque);
+        carregarEstoque();
+    }
+}
+
+// ===============================
+// EDITAR PRODUTO
+// ===============================
+function editarProduto(index) {
+    let estoque = getEstoque();
+    let produto = estoque[index];
+
+    let novoNome = prompt("Editar nome:", produto.nome);
+    if (novoNome === null) return;
+
+    let novaQuantidade = prompt("Editar quantidade:", produto.quantidade);
+    if (novaQuantidade === null) return;
+
+    let novoPreco = prompt("Editar preço:", produto.preco);
+    if (novoPreco === null) return;
+
+    estoque[index] = {
+        nome: novoNome,
+        quantidade: parseInt(novaQuantidade),
+        preco: parseFloat(novoPreco)
+    };
+
+    salvarEstoque(estoque);
+    carregarEstoque();
 }
