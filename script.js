@@ -227,10 +227,10 @@ function exportarBalancetePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    let movimentacoes = getMovimentacoes(); // 🔥 usa função do sistema
+    const estoque = getEstoque();
 
-    if (!movimentacoes || movimentacoes.length === 0) {
-        alert("Nenhuma movimentação encontrada.");
+    if (!estoque || estoque.length === 0) {
+        alert("Nenhum produto encontrado no estoque.");
         return;
     }
 
@@ -241,15 +241,28 @@ function exportarBalancetePDF() {
     doc.text("Gerado em: " + new Date().toLocaleString(), 20, 30);
 
     let y = 40;
+    let totalFinanceiro = 0;
 
-    movimentacoes.forEach((mov) => {
+    estoque.forEach(produto => {
+        const totalProduto = produto.quantidade * produto.preco;
+        totalFinanceiro += totalProduto;
+
         doc.text(
-            `${mov.data} | ${mov.tipo} | ${mov.nome} | Qtd: ${mov.quantidade}`,
+            `${produto.nome} | Qtd: ${produto.quantidade} | R$ ${produto.preco.toFixed(2)} | Total: R$ ${totalProduto.toFixed(2)}`,
             20,
             y
         );
+
         y += 8;
     });
+
+    y += 10;
+    doc.setFontSize(12);
+    doc.text(
+        "TOTAL EM ESTOQUE: R$ " + totalFinanceiro.toFixed(2),
+        20,
+        y
+    );
 
     doc.save("relatorio_balancete.pdf");
 }
