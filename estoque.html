@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="carregarEstoque()">
+
+<header>
+    <h1>Estoque Atual</h1>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="cadastro.html">Cadastro</a>
+        <a href="saida.html">Saída</a>
+        <a href="balancete.html">Balancete</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unit.</th>
+                <th>Total Produto</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaEstoque"></tbody>
+    </table>
+
+    <h3 id="totalEstoque"></h3>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
