@@ -121,3 +121,32 @@ function carregarBalancete() {
     document.getElementById("totalGeral").innerText =
         "Total em Estoque: R$ " + totalFinanceiro.toFixed(2);
 }
+// ===============================
+// PÁGINA ESTOQUE
+// ===============================
+function carregarEstoque() {
+    const estoque = getEstoque();
+    const tabela = document.getElementById("tabelaEstoque");
+
+    if (!tabela) return;
+
+    let totalGeral = 0;
+    tabela.innerHTML = "";
+
+    estoque.forEach(produto => {
+        const totalProduto = produto.quantidade * produto.preco;
+        totalGeral += totalProduto;
+
+        tabela.innerHTML += `
+            <tr>
+                <td>${produto.nome}</td>
+                <td>${produto.quantidade}</td>
+                <td>R$ ${produto.preco.toFixed(2)}</td>
+                <td>R$ ${totalProduto.toFixed(2)}</td>
+            </tr>
+        `;
+    });
+
+    document.getElementById("totalEstoque").innerText =
+        "Valor Total do Estoque: R$ " + totalGeral.toFixed(2);
+}
