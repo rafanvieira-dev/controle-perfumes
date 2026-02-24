@@ -193,9 +193,16 @@ function editarProduto(index) {
     salvarEstoque(estoque);
     carregarEstoque();
 }
-async function exportarEstoquePDF() {
+function exportarEstoquePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+
+    let produtos = getEstoque(); // 🔥 usa sua própria função
+
+    if (!produtos || produtos.length === 0) {
+        alert("Nenhum produto encontrado no estoque.");
+        return;
+    }
 
     doc.setFontSize(16);
     doc.text("RELATÓRIO DE ESTOQUE", 20, 20);
@@ -205,9 +212,7 @@ async function exportarEstoquePDF() {
 
     let y = 40;
 
-    let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
-
-    produtos.forEach((produto, index) => {
+    produtos.forEach((produto) => {
         doc.text(
             `${produto.nome} | Qtd: ${produto.quantidade} | Preço: R$ ${produto.preco}`,
             20,
@@ -218,9 +223,16 @@ async function exportarEstoquePDF() {
 
     doc.save("relatorio_estoque.pdf");
 }
-async function exportarBalancetePDF() {
+function exportarBalancetePDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+
+    let movimentacoes = getMovimentacoes(); // 🔥 usa função do sistema
+
+    if (!movimentacoes || movimentacoes.length === 0) {
+        alert("Nenhuma movimentação encontrada.");
+        return;
+    }
 
     doc.setFontSize(16);
     doc.text("RELATÓRIO DE BALANCETE", 20, 20);
@@ -229,8 +241,6 @@ async function exportarBalancetePDF() {
     doc.text("Gerado em: " + new Date().toLocaleString(), 20, 30);
 
     let y = 40;
-
-    let movimentacoes = JSON.parse(localStorage.getItem("movimentacoes")) || [];
 
     movimentacoes.forEach((mov) => {
         doc.text(
