@@ -193,3 +193,53 @@ function editarProduto(index) {
     salvarEstoque(estoque);
     carregarEstoque();
 }
+async function exportarEstoquePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("RELATÓRIO DE ESTOQUE", 20, 20);
+
+    doc.setFontSize(10);
+    doc.text("Gerado em: " + new Date().toLocaleString(), 20, 30);
+
+    let y = 40;
+
+    let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+
+    produtos.forEach((produto, index) => {
+        doc.text(
+            `${produto.nome} | Qtd: ${produto.quantidade} | Preço: R$ ${produto.preco}`,
+            20,
+            y
+        );
+        y += 8;
+    });
+
+    doc.save("relatorio_estoque.pdf");
+}
+async function exportarBalancetePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("RELATÓRIO DE BALANCETE", 20, 20);
+
+    doc.setFontSize(10);
+    doc.text("Gerado em: " + new Date().toLocaleString(), 20, 30);
+
+    let y = 40;
+
+    let movimentacoes = JSON.parse(localStorage.getItem("movimentacoes")) || [];
+
+    movimentacoes.forEach((mov) => {
+        doc.text(
+            `${mov.data} | ${mov.tipo} | ${mov.nome} | Qtd: ${mov.quantidade}`,
+            20,
+            y
+        );
+        y += 8;
+    });
+
+    doc.save("relatorio_balancete.pdf");
+}
