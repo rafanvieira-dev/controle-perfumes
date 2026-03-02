@@ -9,44 +9,36 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-<body onload="carregarEstoque()">
+<body>
 
 <header>
-    <h1><i class="ph ph-package"></i> Estoque Atual</h1>
+    <h1><i class="ph ph-drop"></i> Controle de Estoque - Perfumes</h1>
     <nav>
         <a href="index.html"><i class="ph ph-house"></i> Início</a>
         <a href="cadastro.html"><i class="ph ph-plus-circle"></i> Cadastro</a>
         <a href="saida.html"><i class="ph ph-minus-circle"></i> Saída</a>
         <a href="balancete.html"><i class="ph ph-chart-line-up"></i> Balancete</a>
         <a href="estoque.html" class="active"><i class="ph ph-package"></i> Estoque</a>
+        <a href="#" class="btn-sair" onclick="fazerLogout()"><i class="ph ph-sign-out"></i> Sair</a>
     </nav>
 </header>
 
 <div class="container">
+    <h2><i class="ph ph-package"></i> Relatório de Estoque</h2>
     <button onclick="exportarEstoquePDF()" style="margin-bottom: 20px; width: auto;"><i class="ph ph-file-pdf"></i> Exportar PDF</button>
-
     <input type="text" id="buscaEstoque" class="search-box" onkeyup="filtrarEstoque()" placeholder="Buscar por nome, marca ou tamanho...">
-
     <div class="table-container">
         <table>
-            <thead>
-                <tr>
-                    <th>Produto</th>
-                    <th>Marca</th>
-                    <th>Tamanho</th>
-                    <th>Qtd</th>
-                    <th>Preço Unit.</th>
-                    <th>Total</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
+            <thead><tr><th>Produto</th><th>Marca</th><th>Tamanho</th><th>Qtd</th><th>Preço Unit.</th><th>Total</th><th>Ações</th></tr></thead>
             <tbody id="tabelaEstoque"></tbody>
         </table>
     </div>
-
     <h3 id="totalEstoque"></h3>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
