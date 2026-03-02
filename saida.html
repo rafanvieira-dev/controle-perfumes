@@ -8,31 +8,32 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body onload="carregarProdutos()">
+<body>
 
 <header>
-    <h1><i class="ph ph-minus-circle"></i> Saída de Produto</h1>
+    <h1><i class="ph ph-drop"></i> Controle de Estoque - Perfumes</h1>
     <nav>
         <a href="index.html"><i class="ph ph-house"></i> Início</a>
         <a href="cadastro.html"><i class="ph ph-plus-circle"></i> Cadastro</a>
         <a href="saida.html" class="active"><i class="ph ph-minus-circle"></i> Saída</a>
         <a href="balancete.html"><i class="ph ph-chart-line-up"></i> Balancete</a>
         <a href="estoque.html"><i class="ph ph-package"></i> Estoque</a>
+        <a href="#" class="btn-sair" onclick="fazerLogout()"><i class="ph ph-sign-out"></i> Sair</a>
     </nav>
 </header>
 
 <div class="container">
+    <h2><i class="ph ph-minus-circle"></i> Registrar Venda/Saída</h2>
     <label>Selecione o Perfume *</label>
-    <select id="produtoSelect">
-        <option value="">Carregando...</option>
-    </select>
-
+    <select id="produtoSelect"><option value="">Aguarde...</option></select>
     <label>Quantidade a Retirar *</label>
     <input type="number" id="quantidadeSaida" placeholder="Quantidade para retirada">
-
     <button type="button" onclick="retirarProduto()"><i class="ph ph-check-square"></i> Registrar Saída</button>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
