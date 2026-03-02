@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saída - Perfumes</title>
+    <title>Caixa (PDV) - Perfumes</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
 
 <header>
-    <h1><i class="ph ph-drop"></i> Controle de Estoque - Perfumes</h1>
+    <h1><i class="ph ph-drop"></i> Controle de Estoque</h1>
     <nav>
         <a href="index.html"><i class="ph ph-house"></i> Início</a>
         <a href="cadastro.html"><i class="ph ph-plus-circle"></i> Cadastro</a>
-        <a href="saida.html" class="active"><i class="ph ph-minus-circle"></i> Saída</a>
+        <a href="saida.html" class="active"><i class="ph ph-shopping-cart"></i> Caixa (Saída)</a>
         <a href="balancete.html"><i class="ph ph-chart-line-up"></i> Balancete</a>
         <a href="estoque.html"><i class="ph ph-package"></i> Estoque</a>
         <a href="#" class="btn-sair" onclick="fazerLogout()"><i class="ph ph-sign-out"></i> Sair</a>
@@ -23,12 +24,48 @@
 </header>
 
 <div class="container">
-    <h2><i class="ph ph-minus-circle"></i> Registrar Venda/Saída</h2>
-    <label>Selecione o Perfume *</label>
-    <select id="produtoSelect"><option value="">Aguarde...</option></select>
-    <label>Quantidade a Retirar *</label>
-    <input type="number" id="quantidadeSaida" placeholder="Quantidade para retirada">
-    <button type="button" onclick="retirarProduto()"><i class="ph ph-check-square"></i> Registrar Saída</button>
+    <h2><i class="ph ph-monitor"></i> Frente de Caixa (PDV)</h2>
+
+    <label>Bipar Produto (Cód. de Barras)</label>
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <input type="text" id="codigoBarrasSaida" placeholder="Bipe o código ou digite e aperte Enter..." onkeypress="verificarEnterSaida(event)" autofocus>
+        <button type="button" class="btn-secundario" style="width: auto; padding: 12px 20px;" onclick="buscarPorCodigoDigitado()" title="Buscar Manual"><i class="ph ph-magnifying-glass"></i></button>
+        <button type="button" class="btn-secundario" style="width: auto; padding: 12px 20px;" onclick="abrirCameraSaida()" title="Ler com a Câmera"><i class="ph ph-barcode"></i></button>
+    </div>
+    <div id="reader-saida" style="width: 100%; display: none; margin-bottom: 15px; border-radius: 8px; overflow: hidden;"></div>
+
+    <label>Ou adicione manualmente sem código:</label>
+    <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+        <select id="produtoSelect" style="flex: 2; min-width: 200px;"><option value="">Aguarde...</option></select>
+        <input type="number" id="quantidadeSaida" placeholder="Qtd" value="1" style="flex: 1; min-width: 80px;" min="1">
+        <button type="button" onclick="adicionarAoCarrinhoBtn()" style="flex: 1; margin-top: 8px; min-width: 120px;"><i class="ph ph-plus"></i> Adicionar</button>
+    </div>
+
+    <hr style="border: 1px solid #EAEAEA; margin-bottom: 20px;">
+
+    <h3><i class="ph ph-shopping-cart"></i> Lista da Venda</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Qtd</th>
+                    <th>Preço Unit.</th>
+                    <th>Subtotal</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCarrinho">
+                <tr><td colspan="5" style="color: #888;">Nenhum produto adicionado.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 id="totalVenda" style="text-align: right; color: #0F3D2E; font-size: 28px; margin-top: 20px;">Total: R$ 0,00</h2>
+
+    <button type="button" onclick="finalizarVenda()" style="background: #1F5C46; font-size: 18px; padding: 16px; margin-top: 10px;">
+        <i class="ph ph-check-circle"></i> Finalizar Venda
+    </button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
