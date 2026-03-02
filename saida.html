@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Saída</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saída - Perfumes</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body onload="carregarProdutos()">
 
 <header>
-    <h1>Saída de Produto</h1>
+    <h1><i class="ph ph-minus-circle"></i> Saída de Produto</h1>
     <nav>
         <a href="index.html">Início</a>
+        <a href="estoque.html">Estoque</a>
     </nav>
 </header>
 
 <div class="container">
-
+    <label>Selecione o Perfume *</label>
     <select id="produtoSelect">
-        <option value="">Selecione o perfume</option>
+        <option value="">Carregando...</option>
     </select>
 
+    <label>Quantidade a Retirar *</label>
     <input type="number" id="quantidadeSaida" placeholder="Quantidade para retirada">
 
-    <button type="button" onclick="retirarProduto()">Registrar Saída</button>
-
+    <button type="button" onclick="retirarProduto()"><i class="ph ph-check-square"></i> Registrar Saída</button>
 </div>
 
 <script src="script.js"></script>
