@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Controle de Perfumes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="login-body">
+
+<div class="container login-container">
+    <h1><i class="ph ph-drop"></i> Controle de Perfumes</h1>
+    <p>Faça login ou crie sua conta para acessar seu estoque.</p>
+
+    <input type="email" id="email" placeholder="Seu e-mail">
+    <input type="password" id="senha" placeholder="Sua senha">
+
+    <button type="button" onclick="fazerLogin()"><i class="ph ph-sign-in"></i> Entrar</button>
+    <button type="button" class="btn-secundario" onclick="criarConta()"><i class="ph ph-user-plus"></i> Criar Nova Conta</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
