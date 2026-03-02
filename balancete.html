@@ -1,36 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Balancete</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balancete - Perfumes</title>
     <link rel="stylesheet" href="style.css">
-    <button onclick="exportarBalancetePDF()">Exportar Balancete em PDF</button>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body onload="carregarBalancete()">
 
 <header>
-    <h1>Balancete</h1>
+    <h1><i class="ph ph-chart-line-up"></i> Balancete Financeiro</h1>
     <nav>
         <a href="index.html">Início</a>
+        <a href="estoque.html">Estoque</a>
     </nav>
 </header>
 
 <div class="container">
-    <table>
-        <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Preço Unit.</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody id="tabela"></tbody>
-    </table>
+    <button onclick="exportarBalancetePDF()" style="margin-bottom: 20px; width: auto;"><i class="ph ph-file-pdf"></i> Exportar Balancete em PDF</button>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Marca</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unit.</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="tabela"></tbody>
+        </table>
+    </div>
 
     <h3 id="totalGeral"></h3>
 </div>
 
 <script src="script.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
