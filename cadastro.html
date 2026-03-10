@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
 
@@ -24,17 +25,32 @@
 
 <div class="container">
     <h2><i class="ph ph-plus-circle"></i> Novo Produto</h2>
+    
     <label>Nome do Perfume *</label>
     <input type="text" id="nome" placeholder="Ex: 212 VIP Men">
+    
     <label>Marca (Opcional)</label>
     <input type="text" id="marca" placeholder="Ex: Carolina Herrera">
+    
     <label>Tamanho (Opcional)</label>
     <input type="text" id="tamanho" placeholder="Ex: 100ml">
+    
     <label>Quantidade *</label>
     <input type="number" id="quantidade" placeholder="Quantidade inicial">
+    
     <label>Preço Unitário (R$) *</label>
     <input type="number" step="0.01" id="preco" placeholder="Preço de Custo ou Venda">
     
+    <label>Código de Barras (Opcional)</label>
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <input type="text" id="codigoBarras" placeholder="Bipe o código ou digite...">
+        <button type="button" class="btn-secundario" style="width: auto; padding: 12px 20px;" onclick="abrirCameraCadastro()" title="Ler com a Câmera">
+            <i class="ph ph-barcode"></i>
+        </button>
+    </div>
+    
+    <div id="reader-cadastro" style="width: 100%; display: none; margin-bottom: 15px; border-radius: 8px; overflow: hidden;"></div>
+
     <button type="button" onclick="cadastrarProduto()"><i class="ph ph-check-circle"></i> Cadastrar Produto</button>
 </div>
 
